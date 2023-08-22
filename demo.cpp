@@ -3,5 +3,5 @@ using namespace std;
 
 int main()
 {
-    cout<<"Kaizokou ni ore wa naru";
+    cout<<"Hello world";
 }
