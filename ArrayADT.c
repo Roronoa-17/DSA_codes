@@ -296,10 +296,110 @@ struct Array* Merge(struct Array *arr, struct Array *arr1)
     return arr2;
 }
 
+// Union Merging
+struct Array* Union(struct Array *arr, struct Array *arr1)
+{
+    int i=0,j=0,k=0;
+    struct Array *arr2 = (struct Array *)malloc(sizeof(struct Array));
+
+    while(i < arr->length && j < arr1->length)
+    {
+        if(arr->A[i] < arr1->A[j])
+        {
+            arr2->A[k++] = arr->A[i++];
+        }
+        else if(arr1->A[j] < arr->A[i])
+        {
+            arr2->A[k++] = arr1->A[j++];
+        }
+        else
+        {
+            arr2->A[k++]=arr1->A[i++];
+            j++;
+        }
+    }
+
+    for(;i<arr->length;i++)
+    {
+        arr2->A[k++]=arr->A[i];
+    }
+    for(;j<arr1->length;j++)
+    {
+        arr2->A[k++]=arr1->A[j];
+    }
+    arr2->length= k;
+    arr2->size = 10;
+
+    return arr2;
+}
+
+// Intersection 
+struct Array* Intersection(struct Array *arr, struct Array *arr1)
+{
+    int i=0,j=0,k=0;
+    struct Array *arr2 = (struct Array *)malloc(sizeof(struct Array));
+
+    while(i < arr->length && j < arr1->length)
+    {
+        if(arr->A[i] < arr1->A[j])
+        {
+            i++;
+        }
+        else if(arr1->A[j] < arr->A[i])
+        {
+            j++;
+        }
+        else if(arr->A[i]==arr1->A[j])
+        {
+            arr2->A[k++]=arr1->A[i++];
+            j++;
+        }
+    }
+
+    arr2->length= k;
+    arr2->size = 10;
+
+    return arr2;
+}
+
+// Difference
+struct Array* Difference(struct Array *arr, struct Array *arr1)
+{
+    int i=0,j=0,k=0;
+    struct Array *arr2 = (struct Array *)malloc(sizeof(struct Array));
+
+    while(i < arr->length && j < arr1->length)
+    {
+        if(arr->A[i] < arr1->A[j])
+        {
+            arr2->A[k++] = arr->A[i++];
+        }
+        else if(arr1->A[j] < arr->A[i])
+        {
+            j++;
+        }
+        else
+        {
+            i++;
+            j++;
+        }
+    }
+
+    for(;i<arr->length;i++)
+    {
+        arr2->A[k++]=arr->A[i];
+    }
+    
+    arr2->length= k;
+    arr2->size = 10;
+
+    return arr2;
+}
+
 int main()
 {
     struct Array arr = {{2, 6, 10, 15, 25, 29}, 10, 7};
-    struct Array arr1 = {{3, 4, 7,18, 20}, 10, 5};
+    struct Array arr1 = {{3, 6, 7,15, 20}, 10, 5};
     struct Array *arr2;
     
     //Append(&arr, 10);
@@ -314,7 +414,8 @@ int main()
     //InsertSort(&arr, 8);
     //printf("%d\n", IsSorted(arr));
     //Rearranging(&arr);
-    arr2 = Merge(&arr, &arr1);
+    //arr2 = Union(&arr, &arr1);
+    arr2 = Intersection(&arr, &arr1);
     Display(*arr2);
 
     return 0;
