@@ -264,9 +264,43 @@ void  Rearranging(struct Array *arr)
      }
 }
 
+// Merging of two arrays
+struct Array* Merge(struct Array *arr, struct Array *arr1)
+{
+    int i=0,j=0,k=0;
+    struct Array *arr2 = (struct Array *)malloc(sizeof(struct Array));
+
+    while(i < arr->length && j < arr1->length)
+    {
+        if(arr->A[i] < arr1->A[j])
+        {
+            arr2->A[k++] = arr->A[i++];
+        }
+        else
+        {
+            arr2->A[k++] = arr1->A[j++];
+        }
+    }
+
+    for(;i<arr->length;i++)
+    {
+        arr2->A[k++]=arr->A[i];
+    }
+    for(;j<arr1->length;j++)
+    {
+        arr2->A[k++]=arr1->A[j];
+    }
+    arr2->length= arr->length + arr1->length;
+    arr2->size = 10;
+
+    return arr2;
+}
+
 int main()
 {
-    struct Array arr = {{2,-3,4,5,-6, 7, -9}, 10, 7};
+    struct Array arr = {{2, 6, 10, 15, 25, 29}, 10, 7};
+    struct Array arr1 = {{3, 4, 7,18, 20}, 10, 5};
+    struct Array *arr2;
     
     //Append(&arr, 10);
     //Insert(&arr, 0, 10);
@@ -279,8 +313,9 @@ int main()
     //Reverse2(&arr);
     //InsertSort(&arr, 8);
     //printf("%d\n", IsSorted(arr));
-    Rearranging(&arr);
-    Display(arr);
+    //Rearranging(&arr);
+    arr2 = Merge(&arr, &arr1);
+    Display(*arr2);
 
     return 0;
 }
