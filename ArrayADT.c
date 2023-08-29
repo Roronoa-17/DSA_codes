@@ -212,10 +212,61 @@ void Reverse2(struct Array *arr)
 }
 
 
+//Inserting and sorting an array
+void InsertSort(struct Array *arr, int x)
+{
+    int i = arr->length-1;
+    if(arr->length == arr->size)
+    {
+        return;
+    }
+    while(i>=0 && arr->A[i]>x)
+    {
+        arr->A[i+1]=arr->A[i];
+        i--;
+    }
+    arr->A[i+1]=x;
+    arr->length++;
+} 
+
+// Checking array is sorted or not
+int IsSorted(struct Array arr)
+{
+    for(int i = 0; i<arr.length-1; i++)
+    {
+        if(arr.A[i] > arr.A[i+1])
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+// Rearranging negative elements to left side and positive elements to right side 
+void  Rearranging(struct Array *arr)
+{
+     int i = 0 , j = arr->length-1;
+
+     while(i < j)
+     {
+        while(arr->A[i] < 0)
+        {
+            i++;
+        }
+        while(arr->A[j] >= 0)
+        {
+            j--;
+        }
+        if(i<j)
+        {
+            swap(&arr->A[i], &arr->A[j]);
+        }
+     }
+}
 
 int main()
 {
-    struct Array arr = {{2,3,4,5,6}, 10, 5};
+    struct Array arr = {{2,-3,4,5,-6, 7, -9}, 10, 7};
     
     //Append(&arr, 10);
     //Insert(&arr, 0, 10);
@@ -225,7 +276,10 @@ int main()
     //printf("%d\n", Min(arr));
     //printf("%d\n", Sum(arr));
     //printf("%f\n", Avg(arr));
-    Reverse2(&arr);
+    //Reverse2(&arr);
+    //InsertSort(&arr, 8);
+    //printf("%d\n", IsSorted(arr));
+    Rearranging(&arr);
     Display(arr);
 
     return 0;
