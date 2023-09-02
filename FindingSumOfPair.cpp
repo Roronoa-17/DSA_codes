@@ -15,11 +15,24 @@ void TargetPair(int arr[], int n, int t)
     }
 }
 
+void TargetPairHash(int arr[], int n, int t)
+{
+    int H[100]={0};
+    for(int i = 0; i<n ; i++)
+    {
+        if(H[t-arr[i]]==1)
+        {
+            cout<<arr[i]<<" "<<t-arr[i]<<endl;
+        }
+        H[arr[i]]++;
+    }
+}
+
 int main()
 {
     int A[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-    TargetPair(A, 10, 6);
+    TargetPairHash(A, 10, 6);
 
     return 0;
 }
