@@ -73,7 +73,7 @@ void Array::Insert(int index, int x)
 {
     if(index>=0 && index<=length)
     {
-        for(int i=length-1;i>=index;i++)
+        for(int i=length-1;i>=index;i--)
         {
             A[i+1]=A[i];
         }
@@ -205,7 +205,7 @@ float Array::Avg()
 void Array::Reverse()
 {
     int *B;
-    B = (int *)malloc(length*sizeof(int));
+    B = new int[length];
     for(int i = length-1, j=0;i>=0; i--, j++)
     {
         B[j]=A[i];
